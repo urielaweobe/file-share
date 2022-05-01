@@ -3,12 +3,13 @@ import { Formik, Form } from "formik";
 import TextField from "../../components/TextField";
 import * as Yup from "yup";
 
-import { Google, GitHub, Facebook, Twitter } from "@mui/icons-material";
+import { Google, GitHub } from "@mui/icons-material";
 
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup  } from "firebase/auth";
+import { auth, gAuth, gitAuth } from "../../firebase";
 
 const Login = () => {
+
   const initialValues = {
     email: "",
     password: "",
@@ -40,6 +41,51 @@ const Login = () => {
       });
   };
 
+  const handleGoogle =() => {
+    signInWithPopup(auth, gAuth)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // ...
+    console.log(user)
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+  }
+
+  const handleGithub = () => {
+    signInWithPopup(auth, gitAuth)
+  .then((result) => {
+    // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+    const credential = GithubAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+
+    // The signed-in user info.
+    const user = result.user;
+    // ...
+    console.log(user)
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.email;
+    // The AuthCredential type that was used.
+    const credential = GithubAuthProvider.credentialFromError(error);
+    // ...
+  });
+  }
+
   return (
     <div className="login">
       <div className="container">
@@ -57,10 +103,12 @@ const Login = () => {
 
                 <button type="submit">Login</button>
                 <div className="icons">
-                  <Google className="icon" />
-                  <GitHub className="icon" />
-                  <Facebook className="icon" />
-                  <Twitter className="icon" />
+                  <Link to="" onClick={handleGoogle}>
+                    <Google className="icon" />
+                  </Link>
+                  <Link to="" onClick={handleGithub}>
+                    <GitHub className="icon" />
+                  </Link>
                 </div>
               </Form>
               <p>
