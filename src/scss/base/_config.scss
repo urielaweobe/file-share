@@ -1,0 +1,28 @@
+.container {
+    width: min(100% - 2rem, 80rem);
+    margin-inline: auto;
+}
+
+.container {
+    @include for-tablet-portrait-up {
+        width: 750px;
+    }
+}
+
+.container {
+    @include for-tablet-landscape-up {
+        width: 970px;
+    }
+}
+
+.container {
+    @include for-desktop-up {
+        width: 1170px;
+    }
+}
+
+.container {
+    @include for-big-desktop-up {
+        width: 1920px;
+    }
+}

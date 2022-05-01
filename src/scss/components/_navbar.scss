@@ -1,0 +1,39 @@
+.navbar {
+    background: transparent;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #000;
+
+    .wrapper {
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .logo {
+            font-size: 15px;
+        }
+
+        .links {
+            font-size: 15px;
+
+            .about {
+                margin-right: 20px;
+                text-decoration: none;
+                color: #000;
+            }
+
+            .share {
+                margin-right: 20px;
+                text-decoration: none;
+                background-color: teal;
+                color: white;
+                padding: 10px;
+                border-radius: 10px;
+            }
+        }
+    }
+}

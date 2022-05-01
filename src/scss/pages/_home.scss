@@ -1,0 +1,40 @@
+.home {
+    background: linear-gradient(180deg, #E7F0FF 70.31%, #FFFFFF 100%);
+    height: 100vh;
+
+
+    .container {
+        display: flex;
+
+        .left {
+            flex: 3;
+            padding: 90px 0;
+
+            p {
+                margin-top: 20px;
+            }
+
+            &__btn {
+                margin-top: 4em;
+            }
+
+            .share {
+                text-decoration: none;
+                background-color: teal;
+                color: white;
+                padding: 10px;
+                border-radius: 10px;
+            }
+
+        }
+
+        .right {
+            flex: 3;
+
+            img {
+                width: 100%;
+                padding: 50px 0;
+            }
+        }
+    }
+}
