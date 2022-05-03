@@ -3,8 +3,10 @@
 @import "base/config";
 
 @import "components/navbar";
+@import "components/sidebar";
+@import "components/navdash";
 
 @import "pages/home";
 @import "pages/login";
 @import "pages/signup";
-
+@import "pages/dash-home";

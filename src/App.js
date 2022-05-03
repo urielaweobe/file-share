@@ -2,6 +2,8 @@ import Home from "./pages/static/Home"
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 
+import DashHome from "./pages/dashboard/DashHome"
+
 // style
 import "./scss/main.scss"
 
@@ -16,6 +18,9 @@ function App() {
             <Route index element={<Home />} />
             <Route path="join" element={<Login />} />
             <Route path="sign-up" element={<Signup />} />
+            <Route path="dashboard">
+              <Route index element={<DashHome />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
