@@ -20,7 +20,7 @@ const Home = () => {
               minima! Fugiat deserunt harum non?
             </p>
             <div className="left__btn">
-              <Link to="/join" className="share">Share now</Link>
+              <Link to="/dashboard" className="share">Share now</Link>
             </div>
           </div>
           <div className="right">

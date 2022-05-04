@@ -1,5 +1,6 @@
 import Sidebar from '../../components/Sidebar'
 import NavDash from "../../components/NavDash"
+import Datatable from '../../components/Datatable'
 
 const DashHome = () => {
   return (
@@ -7,7 +8,7 @@ const DashHome = () => {
         <Sidebar />
         <div className="homeContainer">
             <NavDash />
-            
+            <Datatable />
         </div>
     </div>
   )

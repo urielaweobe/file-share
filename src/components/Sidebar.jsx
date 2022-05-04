@@ -1,7 +1,27 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Dashboard, Logout } from "@mui/icons-material";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import { AuthContext } from "../context/AuthContext";
 
 const Sidebar = () => {
+  const { dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    signOut(auth)
+      .then((user) => {
+        // Sign-out successful.
+        dispatch({ type: "LOGOUT", payload: user });
+        navigate("/");
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error)
+      });
+  };
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -12,17 +32,19 @@ const Sidebar = () => {
       <hr />
       <div className="center">
         <ul>
-          <li>
-            <Dashboard className="icon" />
-            <span>Dashboard</span>
-          </li>
+          <Link to="/dashboard">
+            <li>
+              <Dashboard className="icon" />
+              <span>Dashboard</span>
+            </li>
+          </Link>
         </ul>
       </div>
       <div className="bottom">
         <hr />
         <ul>
           <li>
-            <Link to="">
+            <Link to="" onClick={logout}>
               <Logout className="icon" />
               <span>Logout</span>
             </Link>

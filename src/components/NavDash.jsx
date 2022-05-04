@@ -2,7 +2,7 @@ import { NotificationsNoneOutlined } from "@mui/icons-material";
 
 const NavDash = () => {
   return (
-    <div className="navbar">
+    <div className="navdash">
       <div className="wrapper">
         <div className="items">
           <div className="item">

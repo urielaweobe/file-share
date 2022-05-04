@@ -1,14 +1,19 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import TextField from "../../components/TextField";
 import * as Yup from "yup";
 
 import { Google, GitHub } from "@mui/icons-material";
 
-import { signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup  } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, gAuth, gitAuth } from "../../firebase";
+import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
+  const { dispatch } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const initialValues = {
     email: "",
@@ -31,60 +36,49 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user)
+        dispatch({ type: "LOGIN", payload: user });
+        navigate("/dashboard");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode)
-        console.log(errorMessage)
+        console.log(errorCode);
+        console.log(errorMessage);
       });
   };
 
-  const handleGoogle =() => {
+  const handleGoogle = () => {
     signInWithPopup(auth, gAuth)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // ...
-    console.log(user)
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
-  }
+      .then((result) => {
+        const user = result.user;
+        dispatch({ type: "LOGIN", payload: user });
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+  };
 
   const handleGithub = () => {
     signInWithPopup(auth, gitAuth)
-  .then((result) => {
-    // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-    const credential = GithubAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-
-    // The signed-in user info.
-    const user = result.user;
-    // ...
-    console.log(user)
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GithubAuthProvider.credentialFromError(error);
-    // ...
-  });
-  }
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        dispatch({ type: "LOGIN", payload: user });
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+  };
 
   return (
     <div className="login">
@@ -102,6 +96,7 @@ const Login = () => {
                 <TextField label="Password" name="password" type="password" />
 
                 <button type="submit">Login</button>
+                
                 <div className="icons">
                   <Link to="" onClick={handleGoogle}>
                     <Google className="icon" />

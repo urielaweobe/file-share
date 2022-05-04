@@ -1,17 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import TextField from "../../components/TextField";
 import * as Yup from "yup";
 
-import {
-  doc,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -34,21 +32,19 @@ const Signup = () => {
       .required("Confirm password is required"),
   });
 
-  const handleSubmit = async ( values) => {
+  const handleSubmit = async (values) => {
     const { email, password } = values;
 
     try {
-      const res = await createUserWithEmailAndPassword(auth, email, password)
-        await setDoc(doc(db, "users", res.user.uid), {
-          values,
-          timeStamp: serverTimestamp()
-        })
-      
-      
-    }  catch (err) {
-      console.log(err)
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, "users", res.user.uid), {
+        values,
+        timeStamp: serverTimestamp(),
+      });
+      navigate("/join");
+    } catch (err) {
+      console.log(err);
     }
-
   };
 
   return (
