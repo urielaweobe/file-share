@@ -1,5 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { Formik, Form } from "formik";
 import TextField from "../../components/TextField";
 import * as Yup from "yup";
@@ -12,6 +14,8 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
   const { dispatch } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -32,18 +36,26 @@ const Login = () => {
   const handleSubmit = (values) => {
     const { email, password } = values;
 
+    setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        if (user) {
+          toast.success("User logged in successfully!");
+        }
         dispatch({ type: "LOGIN", payload: user });
         navigate("/dashboard");
+        setLoading(false);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
+        if (errorMessage) {
+          toast.error("");
+        }
       });
   };
 
@@ -53,6 +65,9 @@ const Login = () => {
         const user = result.user;
         dispatch({ type: "LOGIN", payload: user });
         navigate("/dashboard");
+        if (user) {
+          toast.success("User login successfully!");
+        }
       })
       .catch((error) => {
         // Handle Errors here.
@@ -70,6 +85,9 @@ const Login = () => {
         const user = result.user;
         dispatch({ type: "LOGIN", payload: user });
         navigate("/dashboard");
+        if (user) {
+          toast.success("User signed up successfully!");
+        }
       })
       .catch((error) => {
         // Handle Errors here.
@@ -95,8 +113,10 @@ const Login = () => {
                 <TextField label="Email" name="email" type="email" />
                 <TextField label="Password" name="password" type="password" />
 
-                <button type="submit">Login</button>
-                
+                <button type="submit" disabled={loading === true}>
+                  Login
+                </button>
+
                 <div className="icons">
                   <Link to="" onClick={handleGoogle}>
                     <Google className="icon" />

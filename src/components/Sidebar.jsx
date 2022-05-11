@@ -1,6 +1,10 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast} from "react-toastify"
+
 import { Dashboard, Logout } from "@mui/icons-material";
+
+
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
@@ -14,6 +18,7 @@ const Sidebar = () => {
       .then((user) => {
         // Sign-out successful.
         dispatch({ type: "LOGOUT", payload: user });
+        toast.success("User logout successfully!")
         navigate("/");
       })
       .catch((error) => {

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify"
 
 import Home from "./pages/static/Home";
 import Login from "./pages/auth/Login";
@@ -11,6 +12,7 @@ import New from "./pages/dashboard/New";
 
 // style
 import "./scss/main.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 // context
 import { AuthContext } from "./context/AuthContext";
@@ -25,6 +27,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+      <ToastContainer autoClose={5000} />
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />

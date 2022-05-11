@@ -1,13 +1,17 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import TextField from "../../components/TextField";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Signup = () => {
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const initialValues = {
@@ -36,14 +40,17 @@ const Signup = () => {
     const { email, password } = values;
 
     try {
+      setLoading(true);
       const res = await createUserWithEmailAndPassword(auth, email, password);
       await setDoc(doc(db, "users", res.user.uid), {
         values,
         timeStamp: serverTimestamp(),
       });
+      toast.success("User signed up successfully!");
       navigate("/join");
+      setLoading(false);
     } catch (err) {
-      console.log(err);
+      toast.error("There was an error!");
     }
   };
 
@@ -68,7 +75,9 @@ const Signup = () => {
                   name="confirmPassword"
                   type="password"
                 />
-                <button type="submit">Signup</button>
+                <button type="submit" disabled={loading === true}>
+                  Signup
+                </button>
               </Form>
               <p>
                 Already have an account? <Link to="/join">Login here</Link>

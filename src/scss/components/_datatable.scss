@@ -22,5 +22,19 @@
             cursor: pointer;
         }
     }
+
+    .cellAction{
+        // display: flex;
+        // align-items: center;
+        // gap: 15px;
+
+        .deleteButton{
+            padding: 2px 5px;
+            border-radius: 5px;
+            color: crimson;
+            border: 1px solid rgba(220, 20, 60, 0.6);
+            cursor: pointer;
+        }
+    }
     
 }

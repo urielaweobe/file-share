@@ -53,6 +53,11 @@
                 border: none;
                 display: grid;
                 margin: auto;
+
+                &:disabled {
+                    cursor: no-drop;
+                    background-color: rgb(61, 239, 239);
+                }
             }
 
             .icons {
