@@ -30,7 +30,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <Link to="">
+        <Link to="#">
           <span className="logo">Share</span>
         </Link>
       </div>

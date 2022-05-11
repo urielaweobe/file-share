@@ -50,7 +50,7 @@ const Signup = () => {
       navigate("/join");
       setLoading(false);
     } catch (err) {
-      toast.error("There was an error!");
+      toast.error("There was an error! Please check all inputs");
     }
   };
 

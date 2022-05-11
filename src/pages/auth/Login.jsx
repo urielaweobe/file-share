@@ -54,7 +54,7 @@ const Login = () => {
         console.log(errorCode);
         console.log(errorMessage);
         if (errorMessage) {
-          toast.error("");
+          toast.error("Please enter a valid credential");
         }
       });
   };
@@ -75,6 +75,9 @@ const Login = () => {
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
+        if (errorMessage) {
+          toast.error("An error occured!");
+        }
       });
   };
 
@@ -95,6 +98,9 @@ const Login = () => {
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
+        if (errorMessage) {
+          toast.error("An error occured!");
+        }
       });
   };
 
